@@ -5,7 +5,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
          T0."DocTotal", T3."DocNum", '0' ,'3' DocType , 'PAGOS RECIBIDOS DE CONTADO', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,T0."CashSum",T0."CreditSum", T0."CheckSum", T0."TrsfrSum", T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum"
 
 from ORCT  T0               
 
@@ -26,7 +26,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
          T0."DocTotal",  T3."DocNum", '0' ,'3' DocType , 'COBROS DE CREDITO', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,T0."CashSum",T0."CreditSum", T0."CheckSum", T0."TrsfrSum",T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum"
 
 from ORCT  T0               
 
@@ -46,7 +46,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
          T0."DocTotal",  T3."DocNum", '0' ,'3' DocType , 'COBROS DE CREDITO', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,T0."CashSum",T0."CreditSum", T0."CheckSum", T0."TrsfrSum",T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum"
 
 from ORCT  T0               
 
@@ -73,7 +73,7 @@ select T0."DocEntry", T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate"
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T1."SeriesName",5,2) END Sucursal,
         CASE WHEN T0."GroupNum" IN (1,2,4,5,6,7,8) THEN T0."DocTotal" ELSE 0 END Credito,
-        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado
+        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado, T0."VatSum"
 from OINV T0 
 
         left join NNM1 T1 on T0."Series"=T1."Series"  
@@ -91,7 +91,7 @@ select T0."DocEntry", T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate"
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T1."SeriesName",5,2) END Sucursal,
         CASE WHEN T0."GroupNum" IN (1,2,4,5,6,7,8) THEN T0."DocTotal" ELSE 0 END Credito,
-        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado
+        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado, T0."VatSum"
 from OINV T0 
 
         left join NNM1 T1 on T0."Series"=T1."Series"  
@@ -111,7 +111,7 @@ select T0."DocEntry",  T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
         WHEN SUBSTRING(T1."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T1."SeriesName",5,2) END Sucursal,
         CASE WHEN T0."GroupNum" IN (1,2,4,5,6,7,8) THEN T0."DocTotal" ELSE 0 END Credito,
-        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado
+        CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado, T0."VatSum"
 
 from ORIN  T0 
 
