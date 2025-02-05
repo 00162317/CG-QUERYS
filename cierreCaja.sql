@@ -17,7 +17,7 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T0."UserSign"='{?CodUser}' and T0."Canceled" = 'N'
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."Canceled" = 'N'
 
 UNION ALL
 --2. COBROS DE CREDITO
@@ -38,7 +38,7 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T0."UserSign"='{?CodUser}' and T3."GroupNum" IN (1,2,4,5,6,7,8)
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T3."GroupNum" IN (1,2,4,5,6,7,8)
 
 UNION ALL
 --3. ANTICIPOS DE CLIENTES RECIBIDOS
@@ -58,7 +58,7 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T0."UserSign"='{?CodUser}' and T0."PayNoDoc" = 'Y'
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."PayNoDoc" = 'Y'
 
 ------------FACTURACION
 
@@ -76,10 +76,11 @@ select T0."DocEntry", T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate"
         CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado, T0."VatSum"
 from OINV T0 
 
-        left join NNM1 T1 on T0."Series"=T1."Series"  
+        left join NNM1 T1 on T0."Series"=T1."Series"
+        LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"     
 
-where T0."DocDate"={?fechaCierre} -- and T0."GroupNum" not in ('3')
-and T0."UserSign"='{?CodUser}'
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' -- and T0."GroupNum" not in ('3')
+--and T0."UserSign"='{?CodUser}'
 
 UNION ALL
 --2. ANULACIONES/INVALIDACIONES
@@ -94,10 +95,12 @@ select T0."DocEntry", T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate"
         CASE WHEN T0."GroupNum" IN (3) THEN T0."DocTotal" ELSE 0 END Contado, T0."VatSum"
 from OINV T0 
 
-        left join NNM1 T1 on T0."Series"=T1."Series"  
+        left join NNM1 T1 on T0."Series"=T1."Series"
+        LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"     
 
-where T0."DocDate"={?fechaCierre} -- and T0."GroupNum" not in ('3')
-and T0."UserSign"='{?CodUser}' AND T0."CANCELED" ='Y' 
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}'-- and T0."GroupNum" not in ('3')
+--and T0."UserSign"='{?CodUser}' 
+AND T0."CANCELED" ='Y' 
 
 
 UNION ALL
@@ -115,6 +118,7 @@ select T0."DocEntry",  T0."CardCode", T0."NumAtCard", T0."CardName", T0."DocDate
 
 from ORIN  T0 
 
-        left join NNM1 T1 on T0."Series"=T1."Series"                 
+        left join NNM1 T1 on T0."Series"=T1."Series" 
+        LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"                
 
-where T0."DocDate"={?fechaCierre} and T0."UserSign"='{?CodUser}'
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}'--and T0."UserSign"='{?CodUser}'
