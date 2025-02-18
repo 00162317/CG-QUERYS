@@ -13,7 +13,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
             when T1."SumApplied" != T0."TrsfrSum" AND T0."TrsfrSum" > 0  THEN T1."SumApplied" 
             else T0."TrsfrSum" end)  Transferencia, T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum", 'A'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T3."VatSum", 'A'
 
 from ORCT  T0               
 
@@ -42,7 +42,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
             when T1."SumApplied" != T0."TrsfrSum" AND T0."TrsfrSum" > 0  THEN T1."SumApplied" 
             else T0."TrsfrSum" end)  Transferencia,T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum", 'B'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T3."VatSum", 'B'
 
 from ORCT  T0               
 
@@ -62,7 +62,8 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
          T3."DocTotal",  T3."DocNum", '0' ,'3' DocType , 'ANTICIPOS DE CLIENTES RECIBIDOS', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,(case when T0."Canceled"='Y' THEN 0 
             when T1."SumApplied" != T0."CashSum" AND T0."CashSum"> 0  THEN T1."SumApplied" 
-            else T0."CashSum" end)  Efectivo,(case when T0."Canceled"='Y' then '0'
+            else T0."CashSum" end)  Efectivo,
+        (case when T0."Canceled"='Y' then '0'
             when T1."SumApplied" != T0."CreditSum" AND T0."CreditSum" > 0  THEN T1."SumApplied" 
              else T0."CreditSum" end)  Tarjeta, (case when T0."Canceled"='Y' then '0' 
             when T1."SumApplied" != T0."CheckSum" AND T0."CheckSum" > 0  THEN T1."SumApplied" 
@@ -70,7 +71,7 @@ select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate
             when T1."SumApplied" != T0."TrsfrSum" AND T0."TrsfrSum" > 0  THEN T1."SumApplied" 
             else T0."TrsfrSum" end)  Transferencia,T5."U_NAME", CASE WHEN SUBSTRING(T4."SeriesName",5,2) = 'JP' THEN 'JUAN PABLO'
         WHEN SUBSTRING(T4."SeriesName",5,2) = 'ML' THEN 'MERLIOT'
-        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T0."VatSum", 'C'
+        WHEN SUBSTRING(T4."SeriesName",5,2) = 'SM' THEN 'SAN MIGUEL' ELSE SUBSTRING(T4."SeriesName",5,2) END Sucursal, '0', '0', T3."VatSum", 'C'
 
 from ORCT  T0               
 
