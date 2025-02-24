@@ -1,7 +1,7 @@
 ------------------- CIERRE DE CAJA
 ------------COBROS
 --1. PAGOS RECIBIDOS DE CONTADO
-select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate", T0."TaxDate", 
+select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T3."DocDate", T0."TaxDate", 
          T3."DocTotal", T3."DocNum", '0' ,'3' DocType , 'PAGOS RECIBIDOS DE CONTADO', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,(case when T0."Canceled"='Y' THEN 0 
             when T1."SumApplied" != T0."CashSum" AND T0."CashSum"> 0  THEN T1."SumApplied" 
@@ -25,12 +25,12 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."Canceled" = 'N' and T3."GroupNum" IN (3) 
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."Canceled" = 'N' and T3."GroupNum" IN (3,7) 
 
 UNION ALL
 --2. COBROS DE CREDITO
 
-select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate", T0."TaxDate", 
+select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T3."DocDate", T0."TaxDate", 
          T3."DocTotal",  T3."DocNum", '0' ,'3' DocType , 'COBROS DE CREDITO', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,(case when T0."Canceled"='Y' THEN 0 
             when T1."SumApplied" != T0."CashSum" AND T0."CashSum"> 0  THEN T1."SumApplied" 
@@ -54,11 +54,11 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T3."GroupNum" IN (1,2,4,5,6,7,8) and T0."Canceled" = 'N'
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T3."GroupNum" IN (1,2,4,5,6,8) and T0."Canceled" = 'N'
 
 UNION ALL
 --3. ANTICIPOS DE CLIENTES RECIBIDOS
-select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T0."DocDate", T0."TaxDate", 
+select  T0."DocEntry", T0."CardCode", T3."NumAtCard", T0."CardName", T3."DocDate", T0."TaxDate", 
          T3."DocTotal",  T3."DocNum", '0' ,'3' DocType , 'ANTICIPOS DE CLIENTES RECIBIDOS', T3."GroupNum", T4."SeriesName",T0."UserSign"   
         ,(case when T0."Canceled"='Y' THEN 0 
             when T1."SumApplied" != T0."CashSum" AND T0."CashSum"> 0  THEN T1."SumApplied" 
