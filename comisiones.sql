@@ -223,9 +223,12 @@ SELECT
 FROM  "10028_COPPER_ESV"."COMISIONES" T0 
         LEFT JOIN "10028_COPPER_ESV"."PAGOSSV"  T1 ON T0."DocEntry" = T1."DocEntry"
         LEFT JOIN (select "VENDEDOR", SUM("TOTAL") VENTA from "10028_COPPER_ESV"."VENTAS" 
-                WHERE "FECHA" >=  {?FechaIni} AND "FECHA"  <= {?Fechafin} GROUP BY  "VENDEDOR") T2 ON T2."VENDEDOR" = T0."SlpName"
+                   WHERE "FECHA" >=  {?FechaIni} AND "FECHA"  <= {?Fechafin} 
+                   GROUP BY  "VENDEDOR") 
+                T2 ON T2."VENDEDOR" = T0."SlpName"
         LEFT JOIN (SELECT  T0."DocNum" , (T0."DocTotal" - T0."PaidToDate")  as "Pagado"
-        FROM "10028_COPPER_ESV"."OINV" T0 ) T3 ON T0."DocNum" = T3."DocNum"
+                        FROM "10028_COPPER_ESV"."OINV" T0 ) 
+        T3 ON T0."DocNum" = T3."DocNum"
 WHERE T1."FECHA_PAGO" >=  {?FechaIni} AND "FECHA_PAGO"<={?Fechafin} 
 
 
@@ -238,3 +241,13 @@ SELECT *, CASE WHEN T0."GRUPO"='Aire Acondicionado' THEN T0."PRECIO_UNITARIO" EL
 CASE WHEN T0."GRUPO"!='Aire Acondicionado' THEN T0."PRECIO_UNITARIO" ELSE 0 END PRECIO_UNITARIO_40
 FROM VENTAS T0 
 WHERE T0."FECHA" >= {?fechaInicio} and T0."FECHA"<={?fechaFin}
+
+
+
+
+
+
+
+
+
+

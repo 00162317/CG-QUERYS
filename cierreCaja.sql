@@ -25,7 +25,7 @@ from ORCT  T0
 
         LEFT JOIN "OUSR" T5 ON T0."UserSign" = T5."USERID"   
 
-where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."Canceled" = 'N' and T3."GroupNum" IN (3,7) 
+where T0."DocDate"={?fechaCierre} and T5."U_NAME"='{?CodUser}' and T0."Canceled" = 'N' and T3."GroupNum" IN (3,7) --TIENE QUE SER POR FECHA DE DOCUMENTO DE PAGO ACTUAL. 
 
 UNION ALL
 --2. COBROS DE CREDITO
